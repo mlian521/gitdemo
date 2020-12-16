@@ -3,7 +3,7 @@ package com.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.common.Comm;
 import com.example.common.Res;
-import com.example.service.factory.ServiceFactory;
+import com.example.common.SpringIOC;
 import com.example.service.iservice.IUserService;
 
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ public class UserExistServlet extends HttpServlet {
         //1-取值
         String username=req.getParameter("username");
         //2-处理
-        IUserService userService= (IUserService) ServiceFactory.getInstance(Comm.USER);
+        IUserService userService= (IUserService) SpringIOC.getSpringIOC().getBean("userService");
         Res res=userService.userExist(username);
         //3-反馈
         resp.setCharacterEncoding("utf-8");

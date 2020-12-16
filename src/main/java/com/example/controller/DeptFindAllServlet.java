@@ -3,9 +3,10 @@ package com.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.common.Comm;
 import com.example.common.Res;
+import com.example.common.SpringIOC;
 import com.example.dao.entity.Dept;
-import com.example.service.factory.ServiceFactory;
 import com.example.service.iservice.IDeptService;
+import com.example.service.iservice.IReportService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ import java.util.List;
 @WebServlet(name = "DeptFindAllServlet",urlPatterns = {"/deptall"})
 public class DeptFindAllServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        IDeptService deptService= (IDeptService) ServiceFactory.getInstance(Comm.DEPT);
+        IDeptService deptService= (IDeptService) SpringIOC.getSpringIOC().getBean("deptService");
         Res<List<Dept>> res =deptService.findAll();
 
         //System.out.println("sdfhjbop"+res.getData());

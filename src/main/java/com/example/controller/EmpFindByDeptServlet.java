@@ -3,9 +3,10 @@ package com.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.common.Comm;
 import com.example.common.Res;
+import com.example.common.SpringIOC;
 import com.example.dao.entity.Emp;
-import com.example.service.factory.ServiceFactory;
 import com.example.service.iservice.IEmpService;
+import com.example.service.iservice.IReportService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +21,7 @@ import java.util.List;
 public class EmpFindByDeptServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int deptno=Integer.parseInt(request.getParameter("deptno"));
-        IEmpService empService= (IEmpService) ServiceFactory.getInstance(Comm.EMP);
+        IEmpService empService= (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         Res<List<Emp>> result=empService.findByDept(deptno);
         //System.out.println("555555522222"+result);
         PrintWriter out=response.getWriter();

@@ -5,6 +5,7 @@ import com.example.dao.entity.Emp;
 import com.example.dao.entity.User;
 import com.example.dao.idao.IEmpDao;
 import com.example.dao.util.DBUtil;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository("empDao")
 public class EmpDaoImpl implements IEmpDao {
 
     @Override

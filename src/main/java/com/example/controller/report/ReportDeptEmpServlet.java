@@ -4,9 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.example.common.Comm;
 
 import com.example.common.Res;
+import com.example.common.SpringIOC;
 import com.example.controller.vo.DeptEmpVO;
 import com.example.service.dto.DeptEmpDTO;
-import com.example.service.factory.ServiceFactory;
 import com.example.service.iservice.IReportService;
 
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class ReportDeptEmpServlet extends HttpServlet {
         BigDecimal maxSal=new BigDecimal(request.getParameter("max"));
         //assemble vo
         DeptEmpVO deptEmpVO=new DeptEmpVO(deptno,minSal,maxSal);
-        IReportService reportService= (IReportService) ServiceFactory.getInstance(Comm.DEPT_EMP_REPORT);
+        IReportService reportService= (IReportService) SpringIOC.getSpringIOC().getBean("reportService");
         Res<List<DeptEmpDTO>> res= reportService.makeReportForDeptEmp(deptEmpVO);
         PrintWriter out=response.getWriter();
         out.println(JSON.toJSONString(res));

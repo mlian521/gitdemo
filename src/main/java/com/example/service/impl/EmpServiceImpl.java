@@ -5,18 +5,16 @@ import com.example.common.Res;
 import com.example.common.ResEnum;
 import com.example.controller.vo.DelVO;
 import com.example.dao.entity.Emp;
-import com.example.dao.factory.DaoFactory;
 import com.example.dao.idao.IEmpDao;
 import com.example.service.iservice.IEmpService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service("empService")
 public class EmpServiceImpl implements IEmpService {
+    @Autowired
     IEmpDao empDao;
-
-    public EmpServiceImpl() {
-        empDao= (IEmpDao) DaoFactory.getInstance(Comm.EMP);
-    }
 
     @Override
     public List<Emp> findByPage(int page, int size) {

@@ -4,16 +4,15 @@ import com.example.common.Comm;
 import com.example.common.Res;
 import com.example.common.ResEnum;
 import com.example.dao.entity.User;
-import com.example.dao.factory.DaoFactory;
 import com.example.dao.idao.IUserDao;
 import com.example.service.iservice.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("userService")
 public class UserServiceImpl implements IUserService {
+    @Autowired
     IUserDao userDao;
-
-    public UserServiceImpl() {
-        userDao= (IUserDao) DaoFactory.getInstance(Comm.USER);
-    }
 
     @Override
     public Res userExist(String username) {

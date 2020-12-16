@@ -1,8 +1,8 @@
 package com.example.controller;
 
 import com.example.common.Comm;
+import com.example.common.SpringIOC;
 import com.example.dao.entity.Emp;
-import com.example.service.factory.ServiceFactory;
 import com.example.service.iservice.IEmpService;
 
 import javax.servlet.ServletException;
@@ -28,7 +28,7 @@ public class EmpUpdateServlet extends HttpServlet {
             e.printStackTrace();
         }
         BigDecimal sal=new BigDecimal(request.getParameter("sal"));
-        IEmpService empService= (IEmpService) ServiceFactory.getInstance(Comm.EMP);
+        IEmpService empService= (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         Emp emp=new Emp(empno,ename,hiredate,sal);
         String msg=empService.update(emp);
         if (Comm.SUCCESS.equals(msg)){

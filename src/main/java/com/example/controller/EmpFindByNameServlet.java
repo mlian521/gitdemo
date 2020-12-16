@@ -1,8 +1,8 @@
 package com.example.controller;
 
 import com.example.common.Comm;
+import com.example.common.SpringIOC;
 import com.example.dao.entity.Emp;
-import com.example.service.factory.ServiceFactory;
 import com.example.service.iservice.IEmpService;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.util.List;
 public class EmpFindByNameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String ename=request.getParameter("ename");
-        IEmpService empService= (IEmpService) ServiceFactory.getInstance(Comm.EMP);
+        IEmpService empService= (IEmpService) SpringIOC.getSpringIOC().getBean("empService");
         List<Emp> emps=empService.findByName(ename);
 
         //反馈Java模板引擎

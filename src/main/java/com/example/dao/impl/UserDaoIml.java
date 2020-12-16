@@ -3,11 +3,12 @@ package com.example.dao.impl;
 import com.example.dao.entity.User;
 import com.example.dao.idao.IUserDao;
 import com.example.dao.util.DBUtil;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+@Repository("userDao")
 public class UserDaoIml implements IUserDao {
 
     @Override

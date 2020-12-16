@@ -3,8 +3,8 @@ package com.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.common.Comm;
 import com.example.common.Res;
+import com.example.common.SpringIOC;
 import com.example.dao.entity.User;
-import com.example.service.factory.ServiceFactory;
 import com.example.service.iservice.IUserService;
 
 import javax.servlet.ServletException;
@@ -25,7 +25,7 @@ public class UserLoginServlet extends HttpServlet {
         String password=req.getParameter("password");
         //2-处理
         User user=new User(username,password);
-        IUserService userService= (IUserService) ServiceFactory.getInstance(Comm.USER);
+        IUserService userService= (IUserService) SpringIOC.getSpringIOC().getBean("userService");
         Res<User> res=userService.login(user);
         HttpSession session=req.getSession();
         session.setAttribute(Comm.CURRENT_USER,res.getData());
