@@ -2,17 +2,5 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <!--Spring框架 IOC特性 控制反转-->
-    <bean id="huawei" class="com.example.ssm.spring.Phone">
-        <!--属性注入-->
-        <property name="brand" value="HUAWEI"/>
-        <property name="price" value="3999"/>
-     </bean>
-    <bean id="zhao" class="com.example.ssm.spring.Person">
-        <!--属性注入-->
-        <property name="pid" value="1001"/>
-        <property name="pname" value="ZHAO**"/>
-        <!--依赖注入-->
-        <property name="phone" ref="huawei"/>
-    </bean>
+    <!--Spring注解-->
 </beans>
