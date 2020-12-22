@@ -99,18 +99,19 @@ public class EmpServiceImpl implements IEmpService {
 
     @Override
     public Res delBatch(List<DelVO> delVOList) {
-        if (delVOList==null || delVOList.size()==0){
-            return Res.error(ResEnum.ERROR_PARAMS_IN_DELBATCH);
-        }
-
-
-        try {
-            empDao.delBatch(delVOList);
-            return Res.success(ResEnum.SUCCESS_DEL_BATCH);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return Res.error();
+//        if (delVOList==null || delVOList.size()==0){
+//            return Res.error(ResEnum.ERROR_PARAMS_IN_DELBATCH);
+//        }
+//
+//
+//        try {
+//            empDao.delBatch(delVOList);
+//            return Res.success(ResEnum.SUCCESS_DEL_BATCH);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return Res.error();
+        return null;
     }
 }

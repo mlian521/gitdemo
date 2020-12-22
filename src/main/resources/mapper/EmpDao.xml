@@ -13,5 +13,93 @@
     <sql id="AllEmpColumns">
         empno,ename,hiredate,sal
     </sql>
+<!--
+List<Emp> findByPage(@Param("start") int start,@Param("size") int size);
+    List<Emp> findByName(@Param("ename") String ename);
+    Emp findById(@Param("empno") Integer empno);
 
+    int delete(Emp emp);
+    int save(Emp emp);
+    int update(Emp emp);
+
+    List<Emp> findByDept(@Param("deptno") int deptno);
+-->
+    <select id="findByPage" parameterType="map" resultMap="EmpResultMap">
+        select <include refid="AllEmpColumns"/> from emp limit #{start},#{size}
+    </select>
+    <select id="findByName" parameterType="map" resultMap="EmpResultMap">
+        select <include refid="AllEmpColumns"/> from emp where ename like concat('%',#{ename},'%')
+    </select>
+    <select id="findById" parameterType="map" resultMap="EmpResultMap">
+        select <include refid="AllEmpColumns"/> from emp where empno=#{empno}
+    </select>
+    <delete id="delete">
+        delete from emp where empno=#{empno}
+    </delete>
+    <insert id="save" useGeneratedKeys="true" keyProperty="empno">
+        insert into emp(ename,hiredate,sal) values (#{ename},#{hiredate},#{sal})
+    </insert>
+    <update id="update">
+        update emp set ename=#{ename},hiredate=#{hiredate},sal=#{sal} where empno=#{empno}
+    </update>
+    <select id="findByDept" parameterType="int" resultMap="EmpResultMap">
+        select <include refid="AllEmpColumns"/> from emp where deptno=#{deptno}
+    </select>
+    <select id="findByCon" parameterType="map" resultMap="EmpResultMap">
+        select <include refid="AllEmpColumns"/>
+        from emp
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="ename !=null and ename!=''">
+                and ename like  concat('%',#{ename},'%')
+            </if>
+            <if test="hiredate !=null">
+                and hiredate &lt; #{hiredate}
+            </if>
+            <if test="sal !=null">
+                and sal &gt;#{sal}
+            </if>
+        </trim>
+<!--        <where>-->
+<!--            <if test="ename !=null and ename!=''">-->
+<!--                and ename like  concat('%',#{ename},'%')-->
+<!--            </if>-->
+<!--            <if test="hiredate !=null">-->
+<!--                and hiredate &lt; #{hiredate}-->
+<!--            </if>-->
+<!--            <if test="sal !=null">-->
+<!--                and sal &gt;#{sal}-->
+<!--            </if>-->
+<!--        </where>-->
+
+    </select>
+    <update id="dynamicUpdate">
+        update emp
+        <set>
+            <if test="ename!=null and ename !=''">
+                ename=#{ename},
+            </if>
+            <if test="hiredate !=null">
+                hiredate=#{hiredate},
+            </if>
+            <if test="sal !=null">
+                sal=#{sal},
+            </if>
+        </set>
+        where empno=#{empno}
+    </update>
+
+
+    <delete id="delBatch">
+        delete from emp where empno in
+        <foreach collection="list" index="idx" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="saveBatch">
+        insert into emp(ename,hiredate,sal) values
+        <foreach collection="list" separator="," item="empitem">
+            (#{empitem.ename},#{empitem.hiredate},#{empitem.sal})
+        </foreach>
+    </insert>
 </mapper>

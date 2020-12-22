@@ -13,5 +13,15 @@
     <sql id="AllUserColumns">
         id,username,password,pri
     </sql>
-
+<!--
+    int exist(@Param("username") String username);
+    User login(User user);
+-->
+    <select id="exist" parameterType="map" resultType="int">
+        select count(1) from user where username=#{username}
+    </select>
+    <select id="login" resultMap="UserResultMap">
+        select <include refid="AllUserColumns"/> from user
+        where username=#{username} and password=#{password}
+    </select>
 </mapper>
