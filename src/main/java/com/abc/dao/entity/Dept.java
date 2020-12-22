@@ -1,12 +1,14 @@
 package com.abc.dao.entity;
 
+import java.util.List;
+
 public class Dept {
     private int deptno;
     private String dname;
+    
+    private List<Student> stus;
 
-    public Dept(int deptno, String dname) {
-        this.deptno = deptno;
-        this.dname = dname;
+    public Dept() {
     }
 
     @Override
@@ -14,6 +16,7 @@ public class Dept {
         return "Dept{" +
                 "deptno=" + deptno +
                 ", dname='" + dname + '\'' +
+                ", stus=" + stus.size() +
                 '}';
     }
 
@@ -33,6 +36,11 @@ public class Dept {
         this.dname = dname;
     }
 
-    public Dept() {
+    public List<Student> getStus() {
+        return stus;
+    }
+
+    public void setStus(List<Student> stus) {
+        this.stus = stus;
     }
 }

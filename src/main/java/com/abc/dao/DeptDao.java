@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface DeptDao {
     List<Dept> findAll();
+    List<Dept> one2many();
 }

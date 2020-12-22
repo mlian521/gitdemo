@@ -2,17 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.abc.dao.StuDao">
-    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
-    <resultMap id="StuResultMap" type="com.abc.dao.entity.Student">
-        <id property="sid" column="SID" jdbcType="INTEGER"/>
-        <result property="sname" column="SNAME" jdbcType="VARCHAR"/>
-        <result property="deptno" column="DEPTNO" jdbcType="INTEGER"/>
-        <association property="dept" javaType="com.abc.dao.entity.Dept">
-            <id property="deptno" column="DEPTNO" jdbcType="INTEGER"/>
-            <result property="dname" column="DNAME" jdbcType="VARCHAR"/>
-        </association>
+    <!--一对一关系-->
+<!--    <resultMap id="StuResultMap" type="com.abc.dao.entity.Student">-->
+<!--        <id property="sid" column="SID" jdbcType="INTEGER"/>-->
+<!--        <result property="sname" column="SNAME" jdbcType="VARCHAR"/>-->
+<!--        <result property="deptno" column="DEPTNO" jdbcType="INTEGER"/>-->
+<!--        <association property="dept" javaType="com.abc.dao.entity.Dept">-->
+<!--            <id property="deptno" column="DEPTNO" jdbcType="INTEGER"/>-->
+<!--            <result property="dname" column="DNAME" jdbcType="VARCHAR"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
+<!--    <select id="one2one" resultMap="StuResultMap">-->
+<!--        select s.sid,s.sname,d.deptno,d.dname from t_student s left join t_dept d on s.deptno=d.deptno-->
+<!--    </select>-->
+    <resultMap id="StudentResultMap" type="com.abc.dao.entity.Student">
+        <id property="sid" column="SID" jdbcType="INTEGER"></id>
+        <result property="sname" column="SNAME" jdbcType="VARCHAR"></result>
+        <result property="deptno" column="DEPTNO" jdbcType="INTEGER"></result>
+        <collection property="scores" ofType="com.abc.dao.entity.Score">
+            <id property="scid" column="SCID" jdbcType="INTEGER"></id>
+            <result property="sid" column="SID" jdbcType="INTEGER"></result>
+            <result property="cid" column="CID" jdbcType="INTEGER"></result>
+            <result property="score" column="SCORE" jdbcType="DECIMAL"></result>
+            <association property="course" javaType="com.abc.dao.entity.Course">
+                <id property="cid" column="CID" jdbcType="INTEGER"></id>
+                <result property="cname" column="CNAME" jdbcType="VARCHAR"></result>
+            </association>
+
+        </collection>
     </resultMap>
-    <select id="one2one" resultMap="StuResultMap">
-        select s.sid,s.sname,d.deptno,d.dname from t_student s left join t_dept d on s.deptno=d.deptno
+    <select id="getScoreInfo" resultMap="StudentResultMap">
+        select s.sid,s.sname,sc.scid,sc.score,c.cid,c.cname
+        from t_student s left join t_score sc on s.sid=sc.sid
+        left join t_course c on c.cid=sc.cid
     </select>
 </mapper>

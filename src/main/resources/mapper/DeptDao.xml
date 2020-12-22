@@ -6,13 +6,23 @@
     <resultMap id="DeptResultMap" type="com.abc.dao.entity.Dept">
         <id column="DEPTNO" property="deptno" jdbcType="INTEGER" />
         <result column="DNAME" property="dname" jdbcType="VARCHAR" />
-        <result column="LOC" property="loc" jdbcType="VARCHAR" />
+<!--        <result column="LOC" property="loc" jdbcType="VARCHAR" />-->
+        <collection property="stus" ofType="com.abc.dao.entity.Student">
+            <id property="sid" column="SID" jdbcType="INTEGER"></id>
+            <result property="sname" column="SNAME" jdbcType="VARCHAR"></result>
+            <result property="deptno" column="DEPTNO" jdbcType="INTEGER"></result>
+        </collection>
     </resultMap>
     <!--SQL片段-->
     <sql id="AllDeptColumns">
         deptno,dname,loc
     </sql>
-    <select id="findAll" resultMap="DeptResultMap">
+
+    <select id="findAll" resultType="com.abc.dao.entity.Dept">
         select <include refid="AllDeptColumns"/> from dept
+    </select>
+
+    <select id="one2many" resultMap="DeptResultMap">
+        select d.deptno,d.dname,s.sid,s.sname from t_dept d left join t_student s on d.deptno=s.deptno
     </select>
 </mapper>

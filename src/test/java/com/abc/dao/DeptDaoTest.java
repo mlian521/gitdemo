@@ -17,4 +17,13 @@ public class DeptDaoTest {
     public void findAll() {
         deptDao.findAll().forEach(System.out::println);
     }
+    @Test
+    public void one2many() {
+        deptDao.one2many().forEach((dept)->{
+            System.out.println(dept.getDname());
+            System.out.println("***********************");
+            dept.getStus().forEach(System.out::println);
+            System.out.println("###########################");
+        });
+    }
 }
